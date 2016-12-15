@@ -1,0 +1,8 @@
+{
+  "name": "react-webpack2-boilerplate",
+  "version": "1.0.0",
+  "description": "React cutting edge boilerplate",
+  "main": "index.js",
+  "author": "Micahel Pevzner",
+  "license": "MIT"
+}
