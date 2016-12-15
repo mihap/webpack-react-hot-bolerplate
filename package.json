@@ -9,6 +9,13 @@
     "start": "env NODE_ENV=development webpack-dev-server --progress --colors",
     "build": "rimraf dist && env NODE_ENV=production webpack  --colors"
   },
+  "keywords": [
+    "webpack v2",
+    "react",
+    "react-hot-loader v3",
+    "splitting",
+    "react-router v4"
+  ],
   "babel": {
     "presets": [
       [
