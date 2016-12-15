@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import shallowCompare from 'react-addons-shallow-compare';
 
 
-class Dashboard extends Component {
-  static displayName = 'Dashboard';
+class Home extends Component {
+  static displayName = 'Home';
 
   shouldComponentUpdate(nextProps, nextState) {
     return shallowCompare(this, nextProps, nextState);
@@ -12,10 +12,11 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        Async Loaded Dashboard Page
+        Home Page
       </div>
     );
   }
 }
 
-export default Dashboard;
+export default Home;
+
