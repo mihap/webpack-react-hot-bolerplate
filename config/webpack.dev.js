@@ -12,10 +12,6 @@ const DEVELOPMENT_CONFIG = {
     ]
   },
 
-  output: {
-    publicPath: 'http://localhost:9001/'
-  },
-
   cache: true,
 
   devServer: {
