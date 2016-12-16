@@ -32,7 +32,7 @@ const PRODUCTION_CONFIG = {
   },
 
   performance: {
-    hints: true
+    hints: "warning"
   },
 
   plugins: [
