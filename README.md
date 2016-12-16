@@ -7,7 +7,7 @@
   - react-router v4
   - assets pipeline (sass/postcss/autoprefixer)
   - code splitting, vendor and client bundles
-  - lazy loading (via System.import)
+  - lazy loading (via import())
   - source maps
   - basic eslint config
   - extract text plugin and manifest.json
