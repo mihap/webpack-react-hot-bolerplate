@@ -76,8 +76,7 @@ const COMMON_CONFIG = {
   },
 
   performance: {
-    maxAssetSize: Infinity,
-    maxInitialChunkSize: Infinity
+    hints: false
   },
 
   plugins: [

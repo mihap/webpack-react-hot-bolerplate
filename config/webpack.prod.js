@@ -31,6 +31,10 @@ const PRODUCTION_CONFIG = {
     ]
   },
 
+  performance: {
+    hints: true
+  },
+
   plugins: [
     new webpack.LoaderOptionsPlugin({
       minimize: true,
