@@ -1,8 +1,12 @@
-const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 
 
-const { HOT_ONLY_ENTRY } = require('./paths');
+const {
+  HOT_ONLY_ENTRY,
+  NODE_MODULES_PATH
+} = require('./paths');
 
 const DEVELOPMENT_CONFIG = {
   entry: {
@@ -34,7 +38,8 @@ const DEVELOPMENT_CONFIG = {
     new htmlWebpackPlugin({
       title: 'react webpack-2 react-hot-loader-v3 react-router-v4 boilerplate',
       template: './config/index.ejs'
-    })
+    }),
+    new WatchMissingNodeModulesPlugin(NODE_MODULES_PATH)
   ]
 };
 
