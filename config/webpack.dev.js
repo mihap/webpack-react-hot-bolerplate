@@ -32,6 +32,10 @@ const DEVELOPMENT_CONFIG = {
     }
   },
 
+  output: {
+    publicPath: '/'
+  },
+
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
