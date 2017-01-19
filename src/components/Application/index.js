@@ -22,7 +22,7 @@ const Application = ({ store }) => (
 );
 
 Application.propTypes = {
-  store:    Provider.propTypes.store.isRequired
+  store:    Provider.propTypes.store // eslint-disable-line
 };
 
 export default Application;
