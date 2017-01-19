@@ -8,6 +8,7 @@
     "import/prefer-default-export": 0,
     "comma-dangle": [1, "never"],
     "react/prefer-stateless-function": 0,
+    "react/no-array-index-key": 0,
     "react/jsx-filename-extension": 0,
     "react/no-unused-prop-types": 0,
     "jsx-a11y/no-static-element-interactions": 0,

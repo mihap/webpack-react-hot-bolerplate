@@ -22,7 +22,7 @@ const Application = ({ store }) => (
 );
 
 Application.propTypes = {
-  store:    Provider.propTypes.store
+  store:    Provider.propTypes.store.isRequired
 };
 
 export default Application;
