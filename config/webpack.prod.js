@@ -2,6 +2,9 @@ const webpack             = require('webpack');
 const ManifestPlugin      = require('webpack-manifest-plugin');
 const ExtractTextPlugin   = require('extract-text-webpack-plugin');
 
+// https://github.com/webpack/webpack/issues/1315
+const WebpackMd5Hash = require('webpack-md5-hash');
+
 const { DIST_PATH, APP_PATH }   = require('./paths');
 const { cssLoader, sassLoader } = require('./loaders');
 
@@ -32,7 +35,7 @@ const PRODUCTION_CONFIG = {
   },
 
   performance: {
-    hints: "warning"
+    hints: 'warning'
   },
 
   plugins: [
@@ -71,7 +74,9 @@ const PRODUCTION_CONFIG = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity
-    })
+    }),
+
+    new WebpackMd5Hash()
   ]
 };
 
