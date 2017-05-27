@@ -1,5 +1,6 @@
 const webpack             = require('webpack');
 const ManifestPlugin      = require('webpack-manifest-plugin');
+const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const ExtractTextPlugin   = require('extract-text-webpack-plugin');
 
 // https://github.com/webpack/webpack/issues/1315
@@ -78,6 +79,11 @@ const PRODUCTION_CONFIG = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: Infinity
+    }),
+
+    new ChunkManifestPlugin({
+      filename: 'webpack-chunk-manifest.json',
+      manifestVariable: 'webpackManifest'
     }),
 
     new WebpackMd5Hash()
