@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const htmlWebpackPlugin = require('html-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 
 
@@ -39,10 +38,6 @@ const DEVELOPMENT_CONFIG = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new htmlWebpackPlugin({
-      title: 'react webpack-2 react-hot-loader-v3 react-router-v4 boilerplate',
-      template: './config/index.ejs'
-    }),
     new WatchMissingNodeModulesPlugin(NODE_MODULES_PATH)
   ]
 };

@@ -1,6 +1,7 @@
 const webpack        = require('webpack');
 const webpackMerge   = require('webpack-merge');
 const path           = require('path');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 const DEVELOPMENT_CONFIG = require('./config/webpack.dev');
 const PRODUCTION_CONFIG  = require('./config/webpack.prod');
@@ -103,6 +104,11 @@ const COMMON_CONFIG = {
           emitWarning: true
         }
       }
+    }),
+
+    new htmlWebpackPlugin({
+      title: 'react webpack-2 react-hot-loader-v3 react-router-v4 boilerplate',
+      template: './config/index.ejs'
     })
   ]
 };
