@@ -1,16 +1,12 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 
 
-class Dashboard extends PureComponent {
-  static displayName = 'Dashboard';
+const Dashboard = () => (
+  <div>
+    Async Loaded Dashboard Page
+  </div>
+);
+Dashboard.displayName = 'Dashboard';
 
-  render() {
-    return (
-      <div>
-        Async Loaded Dashboard Page
-      </div>
-    );
-  }
-}
 
 export default Dashboard;

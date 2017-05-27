@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Classes from './styles';
 
 const links = [
@@ -9,14 +9,14 @@ const links = [
 
 const Header = () => (
   <div className={ Classes.root }>
-    { links.map((props, i) =>
-      <Link
+    { links.map((props, i) => (
+      <NavLink
         key={ i }
         activeClassName={ Classes.active }
-        activeOnlyWhenExact
+        exact
         { ...props }
       />
-    )}
+    ))}
   </div>
 );
 

@@ -1,22 +1,13 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Dashboard from 'components/Dashboard';
-import Home from 'components/Home';
-import Header from 'components/Header';
+import App from './app';
 
-
-import Classes from './styles';
 
 const Application = ({ store }) => (
   <Provider store={ store }>
     <BrowserRouter>
-      <span className={ Classes.root }>
-        <Header />
-
-        <Route exactly path="/" component={ Home } />
-        <Route exactly path="/dashboard" component={ Dashboard } />
-      </span>
+      <App />
     </BrowserRouter>
   </Provider>
 );
