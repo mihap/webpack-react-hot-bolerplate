@@ -49,8 +49,6 @@ const PRODUCTION_CONFIG = {
       debug: false
     }),
 
-    new webpack.optimize.OccurrenceOrderPlugin(),
-
     new ExtractTextPlugin({
       filename: '[name]-[chunkhash].css',
       disable: false,
