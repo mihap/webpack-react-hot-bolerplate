@@ -29,9 +29,10 @@ const COMMON_CONFIG = {
     vendor: [
       'react',
       'react-dom',
+      'redux',
       'react-redux',
       'redux-thunk',
-      'react-router',
+      'react-router-dom',
       'immutable'
     ]
   },
@@ -54,7 +55,12 @@ const COMMON_CONFIG = {
       {
         test: /\.sass$/,
         include: APP_PATH,
-        use: ['style-loader', cssLoader, postcssLoader, sassLoader]
+        use: [
+          'style-loader',
+          cssLoader,
+          postcssLoader,
+          sassLoader
+        ]
       }
     ]
   },
@@ -79,7 +85,7 @@ const COMMON_CONFIG = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity
+      minChunks: 2
     }),
 
     new webpack.DefinePlugin({
