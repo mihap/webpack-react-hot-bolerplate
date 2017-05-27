@@ -2,6 +2,7 @@ const webpack             = require('webpack');
 const ManifestPlugin      = require('webpack-manifest-plugin');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const ExtractTextPlugin   = require('extract-text-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 // https://github.com/webpack/webpack/issues/1315
 const WebpackMd5Hash = require('webpack-md5-hash');
@@ -82,6 +83,14 @@ const PRODUCTION_CONFIG = {
     new ChunkManifestPlugin({
       filename: 'webpack-chunk-manifest.json',
       manifestVariable: 'webpackManifest'
+    }),
+
+    new CompressionPlugin({
+      asset: '[file].gz',
+      algorithm: 'gzip',
+      test: /\.js$|\.css$/,
+      threshold: 10240,
+      minRatio: 0.8
     }),
 
     new WebpackMd5Hash()
