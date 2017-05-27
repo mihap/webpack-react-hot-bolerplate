@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent } from 'react';
 
 
-class Home extends Component {
+class Home extends PureComponent {
   static displayName = 'Home';
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
-  }
 
   render() {
     return (

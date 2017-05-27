@@ -1,6 +1,5 @@
 const webpack        = require('webpack');
 const webpackMerge   = require('webpack-merge');
-const cssnano        = require('cssnano');
 const path           = require('path');
 
 const DEVELOPMENT_CONFIG = require('./config/webpack.dev');
@@ -10,7 +9,7 @@ const {
   DIST_PATH,
   NODE_MODULES_PATH
 } = require('./config/paths');
-const { cssLoader, sassLoader } = require('./config/loaders');
+const { cssLoader, sassLoader, postcssLoader } = require('./config/loaders');
 
 const ENV = process.env.NODE_ENV;
 const VALID_ENVIRONMENTS = ['test', 'development', 'production'];
@@ -30,8 +29,6 @@ const COMMON_CONFIG = {
     vendor: [
       'react',
       'react-dom',
-      'react-addons-shallow-compare',
-      'redux',
       'react-redux',
       'redux-thunk',
       'react-router',
@@ -57,7 +54,7 @@ const COMMON_CONFIG = {
       {
         test: /\.sass$/,
         include: APP_PATH,
-        use: ['style-loader', cssLoader, 'postcss-loader', sassLoader]
+        use: ['style-loader', cssLoader, postcssLoader, sassLoader]
       }
     ]
   },
@@ -98,26 +95,7 @@ const COMMON_CONFIG = {
       options: {
         eslint: {
           emitWarning: true
-        },
-        postcss: [
-          cssnano({
-            sourcemap: true,
-            autoprefixer: {
-              add: true,
-              remove: true,
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9'
-              ]
-            },
-            safe: true,
-            discardComments: {
-              removeAll: true
-            }
-          })
-        ]
+        }
       }
     })
   ]

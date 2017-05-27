@@ -6,7 +6,7 @@ const ExtractTextPlugin   = require('extract-text-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
 
 const { DIST_PATH, APP_PATH }   = require('./paths');
-const { cssLoader, sassLoader } = require('./loaders');
+const { cssLoader, sassLoader, postcssLoader } = require('./loaders');
 
 const PRODUCTION_CONFIG = {
   entry: {
@@ -27,8 +27,12 @@ const PRODUCTION_CONFIG = {
         test: /\.sass$/,
         include: APP_PATH,
         loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: [cssLoader, 'postcss-loader', sassLoader]
+          fallback: 'style-loader',
+          use: [
+            cssLoader,
+            postcssLoader,
+            sassLoader
+          ]
         })
       }
     ]

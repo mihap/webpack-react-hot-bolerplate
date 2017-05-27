@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, { PureComponent } from 'react';
 
 
-class Dashboard extends Component {
+class Dashboard extends PureComponent {
   static displayName = 'Dashboard';
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
-  }
 
   render() {
     return (

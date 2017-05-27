@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Match } from 'react-router';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Dashboard from 'components/Dashboard';
 import Home from 'components/Home';
@@ -14,8 +14,8 @@ const Application = ({ store }) => (
       <span className={ Classes.root }>
         <Header />
 
-        <Match exactly pattern="/" component={ Home } />
-        <Match exactly pattern="/dashboard" component={ Dashboard } />
+        <Route exactly path="/" component={ Home } />
+        <Route exactly path="/dashboard" component={ Dashboard } />
       </span>
     </BrowserRouter>
   </Provider>
