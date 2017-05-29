@@ -19,8 +19,7 @@ const PRODUCTION_CONFIG = {
 
   output: {
     path:           DIST_PATH,
-    filename:       '[name]-[chunkhash].bundle.js',
-    chunkFilename:  '[id]-[chunkhash].bundle.js'
+    filename:       '[name]-[chunkhash].bundle.js'
   },
 
   module: {
@@ -45,13 +44,15 @@ const PRODUCTION_CONFIG = {
   },
 
   plugins: [
+    new webpack.HashedModuleIdsPlugin(),
+
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false
     }),
 
     new ExtractTextPlugin({
-      filename: '[name]-[chunkhash].css',
+      filename: '[name]-[contenthash].css',
       disable: false,
       allChunks: true
     }),
