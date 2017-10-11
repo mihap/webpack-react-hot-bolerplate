@@ -1,9 +1,8 @@
 
 
 
-# React webpack2 boilerplate
-  - webpack v2
-  - react-hot-loader v3
+# React webpack3 boilerplate
+  - webpack v3
   - react-router v4
   - assets pipeline (sass/postcss/autoprefixer)
   - code splitting, vendor and client bundles
@@ -11,6 +10,9 @@
   - source maps
   - basic eslint config
   - extract text plugin and manifest.json
+  - chunk manifest as separate file for long term caching
+  - babel-preset-env
+  - browserlist support
 
 ```sh
 $ yarn install

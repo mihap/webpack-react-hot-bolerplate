@@ -75,14 +75,20 @@ const PRODUCTION_CONFIG = {
     new UglifyJSPlugin({
       uglifyOptions: {
         ecma: 7
-      }
+      },
+      sourceMap: true
     }),
 
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
       disable: false,
       allChunks: true
-    })
+    }),
+
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map',
+      exclude: /vendor.*\.js$/
+    }),
   ]
 };
 
