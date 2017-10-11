@@ -1,19 +1,26 @@
-const webpack        = require('webpack');
-const webpackMerge   = require('webpack-merge');
-const path           = require('path');
+'use strict';
+
+const path              = require('path');
+const webpack           = require('webpack');
+const webpackMerge      = require('webpack-merge');
+const eslintFormatter   = require('react-dev-utils/eslintFormatter');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
 const DEVELOPMENT_CONFIG = require('./config/webpack.dev');
 const PRODUCTION_CONFIG  = require('./config/webpack.prod');
 const {
   APP_PATH,
-  DIST_PATH,
   NODE_MODULES_PATH
 } = require('./config/paths');
-const { cssLoader, sassLoader, postcssLoader } = require('./config/loaders');
+
+const {
+  cssLoader,
+  sassLoader,
+  postcssLoader
+} = require('./config/loaders');
 
 const ENV = process.env.NODE_ENV;
-const VALID_ENVIRONMENTS = ['test', 'development', 'production'];
+const VALID_ENVIRONMENTS = ['development', 'production'];
 
 if (!VALID_ENVIRONMENTS.includes(ENV)) {
   throw new Error(`${ ENV } is not valid environment!`);
@@ -24,34 +31,28 @@ const config = {
   production:  PRODUCTION_CONFIG
 }[ENV];
 
+const isVendor = ({ resource }) => (
+  resource &&
+  resource.indexOf('node_modules') >= 0 &&
+  resource.match(/\.js$/)
+);
 
 const COMMON_CONFIG = {
-  entry: {
-    vendor: [
-      'react',
-      'react-dom',
-      'redux',
-      'react-redux',
-      'redux-thunk',
-      'react-router-dom',
-      'immutable'
-    ]
-  },
-
-  output: {
-    path: DIST_PATH,
-    filename: '[name].js'
-  },
-
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: APP_PATH,
+        enforce: 'pre',
         use: [
-          'babel-loader',
-          'eslint-loader'
-        ]
+          {
+            options: {
+              formatter: eslintFormatter,
+              emitWarning: true
+            },
+            loader: 'eslint-loader'
+          }
+        ],
+        include: APP_PATH
       },
       {
         test: /\.sass$/,
@@ -67,10 +68,12 @@ const COMMON_CONFIG = {
   },
 
   resolve: {
-    extensions: ['.js', '.sass'],
+    extensions: [
+      '.js',
+      '.sass'
+    ],
     modules: [
-      NODE_MODULES_PATH,
-      APP_PATH
+      NODE_MODULES_PATH
     ],
     alias: {
       components: path.resolve(APP_PATH, 'components'),
@@ -79,38 +82,31 @@ const COMMON_CONFIG = {
     }
   },
 
-  performance: {
-    hints: false
-  },
-
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: 2
-    }),
-
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(ENV)
     }),
 
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map',
-      exclude: /vendor.*\.js$/
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: isVendor
     }),
 
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        eslint: {
-          emitWarning: true
-        }
-      }
-    }),
+    new webpack.NamedChunksPlugin(),
 
     new htmlWebpackPlugin({
       title: 'react webpack-2 react-hot-loader-v3 react-router-v4 boilerplate',
       template: './config/index.ejs'
     })
-  ]
+  ],
+
+  node: {
+    dgram: 'empty',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  }
 };
 
 module.exports = webpackMerge.smart(COMMON_CONFIG, config);

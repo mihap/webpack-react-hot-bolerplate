@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { AppContainer } from 'react-hot-loader';
 
 import store from 'config/createStore';
 import Application from 'components/Application';
@@ -8,9 +7,7 @@ import Application from 'components/Application';
 
 const hotRender = () => {
   render(
-    <AppContainer>
-      <Application store={ store } />
-    </AppContainer>,
+    <Application store={ store } />,
     document.getElementById('root')
   );
 };

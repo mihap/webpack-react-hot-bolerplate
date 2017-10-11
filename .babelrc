@@ -1,0 +1,21 @@
+{
+  "presets": [
+    ["env", {
+      "useBuiltIns": 'entry',
+      "modules": false,
+      "exclude": [
+        "web.dom.iterable",
+        "web.timers",
+        "web.immediate"
+      ]
+    }]
+  ],
+
+  "plugins": [
+    "transform-runtime",
+    "babel-plugin-transform-react-jsx",
+    "syntax-dynamic-import",
+    "transform-object-rest-spread",
+    "transform-class-properties"
+  ]
+}

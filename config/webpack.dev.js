@@ -1,38 +1,55 @@
+'use strict';
+
+const path = require('path');
 const webpack = require('webpack');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 
 
 const {
-  HOT_ONLY_ENTRY,
-  NODE_MODULES_PATH
+  APP_PATH,
+  HMR_ENTRY,
+  NODE_MODULES_PATH,
+  DIST_PATH
 } = require('./paths');
 
 const DEVELOPMENT_CONFIG = {
   entry: {
     client: [
-      'react-hot-loader/patch',
-      HOT_ONLY_ENTRY
+      path.resolve(APP_PATH, 'config', 'polyfill'),
+      HMR_ENTRY
     ]
   },
 
-  cache: true,
+  output: {
+    path: DIST_PATH,
+    filename: '[name].js',
+    publicPath: 'http://localhost:9001/'
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include: APP_PATH,
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
+      }
+    ]
+  },
 
   devServer: {
     hot: true,
     port: 9001,
     inline: true,
-    host: '0.0.0.0',
+    host: 'localhost',
     historyApiFallback: true,
-    stats: {
-      assets: true,
-      timings: true,
-      chunks: false,
-      children: false
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    compress: true,
+    watchOptions: {
+      ignored: /node_modules/
     }
-  },
-
-  output: {
-    publicPath: '/'
   },
 
   plugins: [
