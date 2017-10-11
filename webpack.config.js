@@ -96,8 +96,10 @@ const COMMON_CONFIG = {
 
     new htmlWebpackPlugin({
       title: 'react webpack-2 react-hot-loader-v3 react-router-v4 boilerplate',
-      template: './config/index.ejs'
-    })
+      template: './config/index.ejs',
+      chunks: ['vendor', 'client'],
+      inlineManifestWebpackName: 'webpackManifest',
+    }),
   ],
 
   node: {

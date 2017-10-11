@@ -1,29 +1,47 @@
+'use strict';
+
+const path                = require('path');
 const webpack             = require('webpack');
+const UglifyJSPlugin      = require('uglifyjs-webpack-plugin');
 const ManifestPlugin      = require('webpack-manifest-plugin');
 const ChunkManifestPlugin = require('chunk-manifest-webpack-plugin');
 const ExtractTextPlugin   = require('extract-text-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
+const CompressionPlugin   = require('compression-webpack-plugin');
 
 // https://github.com/webpack/webpack/issues/1315
 const WebpackMd5Hash = require('webpack-md5-hash');
 
-const { DIST_PATH, APP_PATH }   = require('./paths');
-const { cssLoader, sassLoader, postcssLoader } = require('./loaders');
+const {
+  APP_PATH,
+  DIST_PATH,
+}   = require('./paths');
+
+const {
+  cssLoader,
+  sassLoader,
+  postcssLoader
+} = require('./loaders');
 
 const PRODUCTION_CONFIG = {
   entry: {
     client: [
+      path.resolve(APP_PATH, 'config', 'polyfill'),
       APP_PATH
     ]
   },
 
   output: {
-    path:           DIST_PATH,
-    filename:       '[name]-[chunkhash].bundle.js'
+    path:     DIST_PATH,
+    filename: '[name]-[chunkhash].bundle.js'
   },
 
   module: {
     rules: [
+      {
+        test: /\.js$/,
+        include: APP_PATH,
+        loader: 'babel-loader'
+      },
       {
         test: /\.sass$/,
         include: APP_PATH,
@@ -39,62 +57,32 @@ const PRODUCTION_CONFIG = {
     ]
   },
 
-  performance: {
-    hints: 'warning'
-  },
-
   plugins: [
     new webpack.HashedModuleIdsPlugin(),
 
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
+    new ManifestPlugin({
+      fileName: 'webpack-asset-manifest.json'
+    }),
+
+    new ChunkManifestPlugin({
+      filename: 'webpack-chunk-manifest.json',
+      manifestVariable: 'webpackManifest',
+      inlineManifest: true
+    }),
+
+    new WebpackMd5Hash(),
+
+    new UglifyJSPlugin({
+      uglifyOptions: {
+        ecma: 7
+      }
     }),
 
     new ExtractTextPlugin({
       filename: '[name]-[contenthash].css',
       disable: false,
       allChunks: true
-    }),
-
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        screw_ie8: true,
-        warnings: false
-      },
-      mangle: {
-        screw_ie8: true
-      },
-      output: {
-        comments: false,
-        screw_ie8: true
-      },
-      sourceMap: true
-    }),
-
-    new ManifestPlugin({
-      fileName: 'webpack-asset-manifest.json'
-    }),
-
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity
-    }),
-
-    new ChunkManifestPlugin({
-      filename: 'webpack-chunk-manifest.json',
-      manifestVariable: 'webpackManifest'
-    }),
-
-    new CompressionPlugin({
-      asset: '[file].gz',
-      algorithm: 'gzip',
-      test: /\.js$|\.css$/,
-      threshold: 10240,
-      minRatio: 0.8
-    }),
-
-    new WebpackMd5Hash()
+    })
   ]
 };
 
