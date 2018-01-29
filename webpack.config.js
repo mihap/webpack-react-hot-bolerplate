@@ -10,13 +10,15 @@ const DEVELOPMENT_CONFIG = require('./config/webpack.dev');
 const PRODUCTION_CONFIG  = require('./config/webpack.prod');
 const {
   APP_PATH,
-  NODE_MODULES_PATH
+  NODE_MODULES_PATH,
+  ASSETS_PATH
 } = require('./config/paths');
 
 const {
   cssLoader,
   sassLoader,
-  postcssLoader
+  postcssLoader,
+  imagesLoader
 } = require('./config/loaders');
 
 const ENV = process.env.NODE_ENV;
@@ -63,6 +65,15 @@ const COMMON_CONFIG = {
           postcssLoader,
           sassLoader
         ]
+      },
+      {
+        test: /\.(svg|png|jpg|gif)$/,
+        include: [
+          ASSETS_PATH
+        ],
+        use: [
+          imagesLoader
+        ]
       }
     ]
   },
@@ -78,7 +89,8 @@ const COMMON_CONFIG = {
     alias: {
       components: path.resolve(APP_PATH, 'components'),
       config:     path.resolve(APP_PATH, 'config'),
-      reducers:   path.resolve(APP_PATH, 'reducers')
+      reducers:   path.resolve(APP_PATH, 'reducers'),
+      assets:     path.resolve(APP_PATH, 'assets')
     }
   },
 
@@ -98,8 +110,8 @@ const COMMON_CONFIG = {
       title: 'react webpack-2 react-hot-loader-v3 react-router-v4 boilerplate',
       template: './config/index.ejs',
       chunks: ['vendor', 'client'],
-      inlineManifestWebpackName: 'webpackManifest',
-    }),
+      inlineManifestWebpackName: 'webpackManifest'
+    })
   ],
 
   node: {

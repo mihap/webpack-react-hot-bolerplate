@@ -35,8 +35,17 @@ const postcssLoader = {
   }
 };
 
+const imagesLoader = {
+  loader: 'url-loader',
+  options: {
+    limit: 100000,
+    name: '[name]-[hash].[ext]'
+  }
+};
+
 module.exports = {
   cssLoader,
   sassLoader,
-  postcssLoader
+  postcssLoader,
+  imagesLoader
 };
